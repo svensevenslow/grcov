@@ -95,4 +95,9 @@ mod tests {
         assert!(is_recent_version("gcov (Ubuntu 4.9.0-12ubuntu2) 4.9.0 20170406"));
         assert!(is_recent_version("gcov (Ubuntu 6.3.0-12ubuntu2) 6.3.0 20170406"));
     }
+    #[test]
+    fn test_check_gcov_version() {
+        assert!(check_gcov_version());
+    }
+
 }
