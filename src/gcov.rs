@@ -97,7 +97,19 @@ mod tests {
     }
     #[test]
     fn test_check_gcov_version() {
-        assert!(check_gcov_version());
-    }
+        let output = Command::new("gcov")
+                             .arg("--version")
+                             .output()
+                             .expect("Failed to execute `gcov`. `gcov` is required (it is part of GCC).");
 
+        if output.status.success() {
+            if is_recent_version(&String::from_utf8(output.stdout).unwrap()) {
+                assert!(check_gcov_version())
+            } else {
+                assert!(!check_gcov_version())
+            }
+        } else {
+            assert!(!check_gcov_version());
+        }
+    }
 }
